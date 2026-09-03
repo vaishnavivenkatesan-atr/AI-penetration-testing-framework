@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Scan Result</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI Penetration Testing Framework</h1>
+
+    <h2>Scan Result</h2>
+
+    <p><strong>Target URL:</strong> {{ target }}</p>
+
+    <p><strong>Status:</strong> {{ status }}</p>
+
+    <h3>Open Ports</h3>
+
+    <ul>
+        {% if ports %}
+            {% for port in ports %}
+                <li>🟢 Port {{ port }} is OPEN</li>
+            {% endfor %}
+        {% else %}
+            <li>🔴 No Open Ports Found</li>
+        {% endif %}
+    </ul>
+
+    <h3>🛡 security score</h3>
+    <p><strong>{{ score }}/100</strong></p>
+    <div class="progress">
+        <div class="progress-bar" style="width: {{ score }}%;">
+            {{ score }}%
+        </div>
+    </div>
+    <h3>scan time</h3>
+    <p>{{ scan_time }} seconds</p>
+    <h3>Detected server</h3>
+    <p>{{ server }}</p>
+    <h3>🌐 website title</h3>
+    <p>{{ title }}</p>
+    <h3>📡 HTTP response code</h3>
+    <p>{{ response_code }}</p>
+    <h3>🔒 HTTPS status</h3>
+    <p>{{ https_status }}</p>
+    <h3>🏆 security grade</h3>
+    <p>{{ grade }}</p>
+    <h3>🤖 ai risk prediction (XGboost)</h3>
+    <p>{{ ai_prediction }}</p>
+    <h3>security headers</h3>
+    {% if security_headers %}
+       <ul>
+          {% for header, status in security_headers.items() %}
+             {% if status == "present" %}
+                 <li>🟢 <strong>{{ header }}</strong> -present</li>
+             {% else %}     
+                 <li>🔴 <strong>{{ header}}</strong> -missing</li>
+             {% endif %}  
+          {% endfor %} 
+       </ul>
+    {% else %}
+       <p>no security headers found.</p>
+    {% endif %}
+    <h3>⚠️ vulnerabilities detected</h3>
+    {% if vulnerabilities %}
+       <ul>
+          {% for vulnerability in vulnerabilities %}
+             <li>
+                🟠 <strong>{{ vulnerability.name }}</strong>
+                <br>
+                severity: {{ vulnerability.severity }}
+                <br>
+                {{ vulnerability.description }}
+             </li>
+             <br>
+           {% endfor %} 
+       </ul>   
+    {% else %}   
+       <p>🟢 no vulnerabilities detected.</p>
+    {% endif %}
+    <h3>📊 port scan chart</h3>
+    <img src="/static/chart.png" width="300">
+
+    <h3>AI Security Recommendation</h3>
+
+    <ul>
+        {% for item in recommendations %}
+            <li>✔ {{ item }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="/download" class="btn">⬇ download report</a>
+    <br><br>
+    <a href="/">
+        <button>Back to home</button>
+    </a>
+</div>
+
+
+</body>
+</html>
