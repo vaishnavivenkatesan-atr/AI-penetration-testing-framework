@@ -1,0 +1,98 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #0d1117;
+    color: white;
+    font-family:arial,sans-serif;
+}
+.container{
+    width: 70%;
+    margin: 50px auto;
+    background: #161b22;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #00e5ff;
+}
+h1{
+    color: #00e5ff;
+    text-align: center;
+}
+h2{
+    color: #00ff99;
+}
+h3{
+    color: #ffcc00;
+}
+p{
+    font-size: 18px;
+}
+ul{
+    font-size: 18px;
+}
+button{
+    margin-top: 30px;
+    padding: 15px 35px;
+    font-size: 20px;
+    background: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button:hover{
+    background: #0097a7;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+li{
+    margin: 10px;
+}
+.risk-low{
+    color:#00ff66;
+    font-weight:bold;
+}
+
+.risk-medium{
+    color:#ffcc00;
+    font-weight:bold;
+}
+
+.risk-high{
+    color:#ff3333;
+    font-weight:bold;
+}
+.progress{
+    width: 100%;
+    background: #333;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.progress-bar{
+    height: 28px;
+    background: linear-gradient(to right,#00ff99,#00ccff);
+    text-align:"center";
+    line-height: 28px;
+    color: white;
+    font-weight: bold;
+    transition: 1s;
+    border-radius: 30px;
+}
+.btn{
+    display:inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #00bcd4;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn:hover{
+    background: #0097a7;
+    transform: scale(1.05);
+}
