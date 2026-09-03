@@ -1,0 +1,53 @@
+import pandas as pd
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import pickle
+data = {
+    "open_ports": [
+        0, 0, 0, 1, 1, 1, 1, 1, 2, 2,
+        2, 2, 2, 2, 3, 3, 3, 3, 1, 2
+    ],
+
+    "ports_22": [
+        0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+        1, 0, 1, 1, 0, 1, 1, 1, 0, 1
+    ],
+
+    "ports_80": [
+        0, 0, 0, 1, 0, 1, 1, 0, 1, 1,
+        0, 1, 1, 0, 1, 1, 0, 1, 1, 1
+    ],
+
+    "ports_443": [
+        0, 0, 0, 0, 1, 0, 0, 1, 1, 0,
+        1, 1, 0, 1, 1, 0, 1, 1, 1, 0
+    ],
+
+    "risk": [
+        0, 0, 0, 1, 0, 1, 1, 0, 2, 1,
+        1, 2, 2, 1, 2, 2, 2, 2, 1, 2
+    ]
+}
+df = pd.DataFrame(data)
+x = df[["open_ports","ports_22","ports_80","ports_443"]]
+y = df["risk"]
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=42
+)
+model = XGBClassifier(
+    n_estimators=100,
+    max_depth=3,
+    learning_rate=0.1,
+    objective="multi:softmax",
+    num_class=3,
+    eval_metric="mlogloss"
+)
+model.fit(x_train, y_train)
+predictions = model.predict(x_test)
+accuracy = accuracy_score(y_test, predictions)
+print("XGBoost model training completed!")
+print("accuracy:", accuracy)
+with open("xgboost_risk_model.pkl","wb")as file:
+    pickle.dump(model, file)
+print("Model saved as xgboost_risk_model.pkl")    
